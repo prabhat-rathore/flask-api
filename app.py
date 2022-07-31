@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 class ToDoModel(db.Model):
     id = db.Column(db.Integer , primary_key=True)
     task = db.Column(db.String(200))
-    summary = db.Column(db.String(500))
+    #summary = db.Column(db.String(500))
 
 #db.create_all()
 
@@ -21,24 +21,26 @@ class ToDoModel(db.Model):
 
 task_post_args = reqparse.RequestParser()
 task_post_args.add_argument("task",type=str,help="Task is required",required=True)
-task_post_args.add_argument("summary",type=str,help="Summary is required",required=True)
+#task_post_args.add_argument("summary",type=str,help="Summary is required",required=True)
 
 task_update_args = reqparse.RequestParser()
 task_update_args.add_argument("task",type=str)
-task_update_args.add_argument("summary",type=str)
+#task_update_args.add_argument("summary",type=str)
 
 resource_fields = {
     'id':fields.Integer,
     'task':fields.String,
-    'summary':fields.String,
+    #'summary':fields.String,
 }
 
 class ToDoList(Resource):
     def get(self):
         tasks = ToDoModel.query.all()
         todos={}
+        #for task in tasks:
+            #todos[task.id] ={"task":task.task , "summary":task.summary}
         for task in tasks:
-            todos[task.id] ={"task":task.task , "summary":task.summary}
+            todos[task.id] ={"task":task.task}
         return todos
 
 
@@ -59,7 +61,8 @@ class ToDo(Resource):
         if task:
             abort(409,message="Task id is taken")
         
-        todo = ToDoModel(id=todo_id , task= args['task'] , summary=args['summary'])
+        #todo = ToDoModel(id=todo_id , task= args['task'] , summary=args['summary'])
+        todo = ToDoModel(id=todo_id , task= args['task'])
         db.session.add(todo)
         db.session.commit()
         return todo , 201
@@ -73,8 +76,8 @@ class ToDo(Resource):
             abort(409,message="task doesn't exist")
         if args['task']:
             task.task = args['task']
-        if args['summary']:
-            task.summary = args['summary']
+        #if args['summary']:
+            #task.summary = args['summary']
         db.session.commit()
         return task
 
