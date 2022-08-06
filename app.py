@@ -3,8 +3,11 @@ from email import message
 from flask import Flask
 from flask_restful import Resource,Api, marshal_with,reqparse,abort,fields
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
  
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
