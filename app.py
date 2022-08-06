@@ -2,13 +2,13 @@ from ast import Delete
 from email import message
 from flask import Flask
 from flask_restful import Resource,Api, marshal_with,reqparse,abort,fields
-from flask_cors import CORS
+#from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 
  
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 api = Api(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
