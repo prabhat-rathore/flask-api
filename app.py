@@ -2,8 +2,9 @@ from ast import Delete
 from email import message
 from flask import Flask
 from flask_restful import Resource,Api, marshal_with,reqparse,abort,fields
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS , cross_origin
+
 
  
 app = Flask(__name__)
